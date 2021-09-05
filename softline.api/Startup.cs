@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using softline.core;
+using softline.db.Context;
 
 namespace softline.api {
     public class Startup {
@@ -22,6 +24,8 @@ namespace softline.api {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
+
+            services.AddDbContext<ObjectivesContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
