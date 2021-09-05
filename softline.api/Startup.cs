@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using softline.core;
 using softline.db.Context;
+using softline.core.Interfaces;
+using softline.core.Services;
 
 namespace softline.api {
     public class Startup {
@@ -26,6 +28,15 @@ namespace softline.api {
             services.AddControllers();
 
             services.AddDbContext<ObjectivesContext>();
+
+            services.AddTransient<IObjectivesServices, ObjectivesServices>();
+
+            services.AddTransient<IStatusesServices, StatusesServices>();
+
+            services.AddSwaggerDocument(settings => {
+                settings.Title = "Objectives";
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +50,10 @@ namespace softline.api {
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseOpenApi();
+
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
