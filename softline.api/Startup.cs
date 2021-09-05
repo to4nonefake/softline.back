@@ -37,6 +37,15 @@ namespace softline.api {
                 settings.Title = "Objectives";
             });
 
+            services.AddCors(options => {
+                options.AddPolicy("ObjectivesPolicy",
+                    builder => {
+                        builder.WithOrigins("*")
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +57,8 @@ namespace softline.api {
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("ObjectivesPolicy");
 
             app.UseAuthorization();
 
