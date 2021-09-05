@@ -14,7 +14,6 @@ namespace softline.core.Services {
         }
 
         public List<Objective> GetObjectives() {
-
             return _context.Objectives.ToList();
         }
 
@@ -23,9 +22,13 @@ namespace softline.core.Services {
         }
 
         public Objective CreateObjective(Objective obj) {
-            _context.Add(obj);
-            _context.SaveChanges();
-
+            try {
+                var temp = _context.Statuses.First(st => st.status_id == obj.status_id);
+                _context.Add(obj);
+                _context.SaveChanges();
+            } catch {
+                
+            }
             return obj;
         }
 
